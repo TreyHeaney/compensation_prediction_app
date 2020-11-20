@@ -16,28 +16,23 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Your Value Proposition
+            ## Can I predict your salary?
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            I've built a simple predictive model around the 2020 Stack Overflow Developer Survey results and have deployed this app so you can make predictions. 
 
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            Type in your info and see if I can predict your salary, or maybe just see what the average salary is for someone with certain qualifications.
 
             """
         ),
-        dcc.Link(dbc.Button('Your Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Make Predictions', color='primary'), href='/predictions')
     ],
     md=4,
 )
 
-gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
 
 column2 = dbc.Col(
     [
-        dcc.Graph(figure=fig),
+        html.Img(src='https://puu.sh/GFlhh/38bdbc19fa.png')
     ]
 )
 
