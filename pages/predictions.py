@@ -24,7 +24,6 @@ empty_dataframe = load('assets/df.joblib')
     Output('prediction-content', 'children'),
     [Input('Age', 'value'), 
     Input('Age1stCode', 'value'),
-    Input('YearsCode', 'value'),
     Input('YearsCodePro', 'value'),
     Input('Hobbyist', 'value'),
     Input('MainBranch', 'value'),
@@ -44,18 +43,18 @@ empty_dataframe = load('assets/df.joblib')
     ]
 )
 
-def predict(Age, Age1stCode, YearsCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
+def predict(Age, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
             UndergradMajor, Employment, NEWOvertime, Devtype, LanguageWorkedWith, DatabaseWorkedWith, 
             WebframeWorkedWith, PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,
             Ethnicity, WorkWeekHrs):
 
     # We cast the variables to a temporary dataframe so we can do column manipulation more easily
-    temp_dataframe = pd.DataFrame(columns=['Age', 'Age1stCode', 'YearsCode', 'YearsCodePro', 'Hobbyist', 
+    temp_dataframe = pd.DataFrame(columns=['Age', 'Age1stCode', 'YearsCodePro', 'Hobbyist', 
                 'MainBranch', 'EdLevel', 'UndergradMajor', 'Employment', 'NEWOvertime', 'Devtype', 'LanguageWorkedWith', 
                 'DatabaseWorkedWith', 'WebframeWorkedWith', 'PlatformWorkedWith', 'MiscTechWorkedWith', 'NEWCollabToolsWorkedWith', 
                 'Ethnicity', 'WorkWeekHrs'
         ],
-        data=[[Age, Age1stCode, YearsCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
+        data=[[Age, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
             UndergradMajor, Employment, NEWOvertime, Devtype, LanguageWorkedWith, DatabaseWorkedWith, 
             WebframeWorkedWith, PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,
             Ethnicity, WorkWeekHrs
@@ -139,16 +138,6 @@ column2 = dbc.Col(
             marks=({n: str(n) for n in range(0, 51, 2)}), 
             className='mb-5'
         ),
-        dcc.Markdown('### Years programming'),
-        dcc.Slider(
-            id='YearsCode', 
-            min=0, 
-            max=50, 
-            step=1, 
-            value=0, 
-            marks=({n: str(n) for n in range(0, 51, 2)}), 
-            className='mb-5'
-        ),
         dcc.Markdown('### Years programming Professionally'),
         dcc.Slider(
             id='YearsCodePro', 
@@ -168,14 +157,6 @@ column2 = dbc.Col(
             value=0, 
             marks=({n: str(n) for n in range(0, 71, 5)}), 
             className='mb-5'
-        ),
-        dcc.Markdown('### Do you program as a hobby?'),
-        dcc.Dropdown(
-            id='Hobbyist',
-            options=[
-                {'label': 'Yes  ', 'value': 'Yes'},
-                {'label': 'No  ', 'value': 'No'},
-            ]
         ),
 
         # Don't feel too bad for me, this was mostly generated with a script
@@ -452,6 +433,14 @@ column2 = dbc.Col(
                 {'label': 'Multiracial  ', 'value': 'Multiracial'},
                 {'label': 'Biracial  ', 'value': 'Biracial'},
                 {'label': 'Southeast Asian  ', 'value': 'Southeast Asian'},
+            ]
+        ),
+        dcc.Markdown('### Do you program as a hobby?'),
+        dcc.Dropdown(
+            id='Hobbyist',
+            options=[
+                {'label': 'Yes  ', 'value': 'Yes'},
+                {'label': 'No  ', 'value': 'No'},
             ]
         ),
 

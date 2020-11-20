@@ -18,7 +18,7 @@ column1 = dbc.Col(
             
                 ## Insights
 
-                This page should work with 3d glasses if you want even deeper insight.
+                This page should work with 3d glasses if you want even deeper insights.
 
                 """,
             ),
@@ -36,7 +36,7 @@ column2 = dbc.Col(
             
                 ## Insights
 
-                This page should work with 3d glasses if you want even deeper insight.
+                This page should work with 3d glasses if you want even deeper insights.
 
                 """,
             ),

@@ -22,7 +22,8 @@ column1 = dbc.Col(
             mostly in pandas/sklearn, and the final predictor was from XGBoost, which is to say I programmed 
             0.01% of it.
 
-            The whole project is covered more in-depth here https://data-sci-ish.blogspot.com/
+            The whole project is covered more in-depth here 
+            https://data-sci-ish.blogspot.com/2020/11/a-predictive-model-for-developer.html
 
             """
         ),
