@@ -1,3 +1,3 @@
-# Dash Template
+# A Simple Dash App for Predicting Developer Compensations
 
-[Instructions](https://lambdaschool.github.io/ds/unit2/dash-template/)
+This is a very simple applet I've strung together out of prebaked code so users can interface with a predictive model I built around the 2020 Stack Overflow Devloper Survey results. The model used in this app is a boosted simple linear regression.
