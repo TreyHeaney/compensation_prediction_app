@@ -116,7 +116,8 @@
         },
         "flask-compress": {
             "hashes": [
-                "sha256:c132590e7c948877a96d675c13cbfa64edec0faafa2381678dea6f36aa49a552"
+                "sha256:c132590e7c948877a96d675c13cbfa64edec0faafa2381678dea6f36aa49a552",
+                "sha256:fda1b8a834176c485c7018a4b9326599311afbaaa08a715771c1fd9021f871fa"
             ],
             "version": "==1.8.0"
         },
