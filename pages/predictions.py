@@ -17,12 +17,13 @@ from joblib import load
 
 # Our pipeline we pickled
 pipeline = load('assets/dump.joblib')
-# And an empty dataframe with merely the columns we used
+# And an empty dataframe with the columns we used to preserve order
 empty_dataframe = load('assets/df.joblib')
 
 @app.callback(
     Output('prediction-content', 'children'),
     [Input('Age', 'value'), 
+    Input('OrgSize', 'value'),
     Input('Age1stCode', 'value'),
     Input('YearsCodePro', 'value'),
     Input('Hobbyist', 'value'),
@@ -43,53 +44,57 @@ empty_dataframe = load('assets/df.joblib')
     ]
 )
 
-def predict(Age, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
+def predict(Age, OrgSize, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
             UndergradMajor, Employment, NEWOvertime, Devtype, LanguageWorkedWith, DatabaseWorkedWith, 
             WebframeWorkedWith, PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,
             Ethnicity, WorkWeekHrs):
 
     # We cast the variables to a temporary dataframe so we can do column manipulation more easily
-    temp_dataframe = pd.DataFrame(columns=['Age', 'Age1stCode', 'YearsCodePro', 'Hobbyist', 
-                'MainBranch', 'EdLevel', 'UndergradMajor', 'Employment', 'NEWOvertime', 'Devtype', 'LanguageWorkedWith', 
-                'DatabaseWorkedWith', 'WebframeWorkedWith', 'PlatformWorkedWith', 'MiscTechWorkedWith', 'NEWCollabToolsWorkedWith', 
-                'Ethnicity', 'WorkWeekHrs'
+    temp_dataframe = pd.DataFrame(columns=['Age', 'OrgSize', 'Age1stCode', 'YearsCodePro', 'Hobbyist', 
+                'MainBranch', 'EdLevel', 'UndergradMajor', 'Employment', 'NEWOvertime', 'Devtype', 
+                'LanguageWorkedWith', 'DatabaseWorkedWith', 'WebframeWorkedWith', 'PlatformWorkedWith', 
+                'MiscTechWorkedWith', 'NEWCollabToolsWorkedWith', 'Ethnicity', 'WorkWeekHrs'
         ],
-        data=[[Age, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
+        data=[[Age, OrgSize, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
             UndergradMajor, Employment, NEWOvertime, Devtype, LanguageWorkedWith, DatabaseWorkedWith, 
             WebframeWorkedWith, PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,
             Ethnicity, WorkWeekHrs
             ]]
     )
+    print(Age, OrgSize, Age1stCode, YearsCodePro, Hobbyist, MainBranch, EdLevel, 
+            UndergradMajor, Employment, NEWOvertime, Devtype, LanguageWorkedWith, DatabaseWorkedWith, 
+            WebframeWorkedWith, PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,
+            Ethnicity, WorkWeekHrs)
 
-    
     features = empty_dataframe.copy()
     
-    # The model takes onehotencoded columns for 'select all' columns but for variables collected with checkboxes we get a list returned ...
-    # ...so we loop through it and onehotencode each value in each list.
-    values_potentially_containing_lists = [DatabaseWorkedWith, LanguageWorkedWith, WebframeWorkedWith, 
-                                           PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,Ethnicity
-                                          ]
-    for column_set in values_potentially_containing_lists:
-        # If one value is recoreded, the checkboxes return only a string...
-        if isinstance(column_set, str):
-            temp_dataframe[column_set] = 1
-        # ...otherwise it returns a list.
+    # The model takes onehot encoded columns for 'select all'-type columns and onehot encodes itself all 
+    # other categorical variables.
+
+    # List of 'select all'-type columns
+    values_with_lists = [DatabaseWorkedWith, LanguageWorkedWith, WebframeWorkedWith, Devtype,
+                         PlatformWorkedWith, MiscTechWorkedWith, NEWCollabToolsWorkedWith,Ethnicity]
+
+    # Here we loop through the list of inputs that contain are a list and onehot encode contained values if
+    # they're a list.
+    for column_set in values_with_lists:
+        print(column_set)
         if isinstance(column_set, list):
             for nested_col in column_set:
                 temp_dataframe[nested_col] = 1
 
-    # And now we cast all columns onto the dataframe we imported to perserve the order of the columns with minimal headache.
+    # And now we cast all columns onto the dataframe we imported to perserve the order of 
+    # the columns with minimal headache.
+    print('------NEW------NEW-----NEW------')
+    pd.options.display.max_columns = 999
     for col in temp_dataframe.columns:
         if col in features.columns:
             features[col] = temp_dataframe[col]
-    
+
     to_return = int(pipeline.predict(features)[0])
     to_return = f'${to_return}'
 
     return to_return
-
-
-
 
 
 # 2 column layout. 1st column width = 4/12
@@ -101,13 +106,14 @@ column1 = dbc.Col(
         
             # Predictions
 
-            Plug in your info and the model will generate a prediction based of it! 
+            Plug in your info and the model will generate a prediction based on it! 
             Some questions were removed to make it quicker to fill out and because 
             of lack of correlation, so the actual model is slightly more accurate.
 
             You might notice some non-linear relationships, and this is likely because 
             the high dimensionality of the input data.
 
+            Inputs are not logged by the app at all.
             """
         ),
         html.H2('Projected Annual Compensation:', className='mb-5'), 
