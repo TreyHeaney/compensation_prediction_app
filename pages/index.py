@@ -9,8 +9,6 @@ import plotly.express as px
 # Imports from this application
 from app import app
 
-# 2 column layout. 1st column width = 4/12
-# https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 column1 = dbc.Col(
     [
         dcc.Markdown(
@@ -18,13 +16,13 @@ column1 = dbc.Col(
         
             ## Can I predict your salary?
 
-            I've built a simple predictive model around the 2020 Stack Overflow Developer Survey results and have deployed this app so you can make predictions. 
+            This is an interface for a simple predictive model I built around the 2020 stack overflow developer survey.
 
-            Type in your info and see if I can predict your salary, or maybe just see what the average salary is for someone with certain qualifications.
+            Enter your info, and the model will generate predictions!
 
             """
         ),
-        dcc.Link(dbc.Button('Make Predictions', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Make Predictions', color='primary'), href='/predictions'),
     ],
     md=4,
 )
@@ -32,7 +30,8 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        html.Img(src='https://puu.sh/GFlhh/38bdbc19fa.png')
+        html.Img(src='https://puu.sh/GFlhh/38bdbc19fa.png'),
+        dcc.Markdown('An example of a correlation with compensation that can be used in prediction.')
     ]
 )
 

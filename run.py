@@ -7,15 +7,13 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, predictions, insights, process
+from pages import index, predictions, process
 
-# Navbar docs: https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
 navbar = dbc.NavbarSimple(
     brand='Developer Comp. Prediction App',
     brand_href='/', 
     children=[
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
     ],
     sticky='top',
@@ -24,12 +22,6 @@ navbar = dbc.NavbarSimple(
     dark=False
 )
 
-# Footer docs:
-# dbc.Container, dbc.Row, dbc.Col: https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
-# html.P: https://dash.plot.ly/dash-html-components
-# fa (font awesome) : https://fontawesome.com/icons/github-square?style=brands
-# mr (margin right) : https://getbootstrap.com/docs/4.3/utilities/spacing/
-# className='lead' : https://getbootstrap.com/docs/4.3/content/typography/#lead
 footer = dbc.Container(
     dbc.Row(
         dbc.Col(
@@ -39,7 +31,6 @@ footer = dbc.Container(
                     html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:heanstertm@gmail.com'), 
                     html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/TreyHeaney'), 
                     html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/treyhe/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href=''), 
                 ], 
                 className='lead'
             )
@@ -47,10 +38,6 @@ footer = dbc.Container(
     )
 )
 
-# Layout docs:
-# html.Div: https://dash.plot.ly/getting-started
-# dcc.Location: https://dash.plot.ly/dash-core-components/location
-# dbc.Container: https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False), 
     navbar, 
@@ -60,7 +47,6 @@ app.layout = html.Div([
 ])
 
 
-# URL Routing for Multi-Page Apps: https://dash.plot.ly/urls
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
@@ -68,13 +54,10 @@ def display_page(pathname):
         return index.layout
     elif pathname == '/predictions':
         return predictions.layout
-    elif pathname == '/insights':
-        return insights.layout
     elif pathname == '/process':
         return process.layout
     else:
         return dcc.Markdown('## Page not found... Probably my fault.')
 
-# Run app server: https://dash.plot.ly/getting-started
 if __name__ == '__main__':
     app.run_server(debug=True)

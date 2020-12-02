@@ -45,7 +45,7 @@ dbc.themes.YETI
 
 external_stylesheets = [
     dbc.themes.SIMPLEX,
-    'https://use.fontawesome.com/releases/v5.9.0/css/all.css', # for social media icons
+    'https://use.fontawesome.com/releases/v5.9.0/css/all.css',
 ]
 
 meta_tags=[
@@ -53,6 +53,6 @@ meta_tags=[
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, meta_tags=meta_tags)
-app.config.suppress_callback_exceptions = True # see https://dash.plot.ly/urls
-app.title = 'Developer Comp. Prediction App' # appears in browser title bar
+app.config.suppress_callback_exceptions = True
+app.title = 'Developer Comp. Prediction App' 
 server = app.server
