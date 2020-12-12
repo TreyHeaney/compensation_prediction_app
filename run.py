@@ -9,6 +9,7 @@ from dash.dependencies import Input, Output
 from app import app, server
 from pages import index, predictions, process
 
+# The top bar of the webpage.
 navbar = dbc.NavbarSimple(
     brand='Developer Comp. Prediction App',
     brand_href='/', 
@@ -22,6 +23,7 @@ navbar = dbc.NavbarSimple(
     dark=False
 )
 
+# The bottom bar of the webpage
 footer = dbc.Container(
     dbc.Row(
         dbc.Col(
@@ -47,6 +49,7 @@ app.layout = html.Div([
 ])
 
 
+# Primary webpage rendering.
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):

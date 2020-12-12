@@ -1,3 +1,5 @@
+"""The first page when you open the website"""
+
 # Imports from 3rd party libraries
 import dash
 import dash_bootstrap_components as dbc
@@ -30,8 +32,8 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        html.Img(src='https://puu.sh/GFlhh/38bdbc19fa.png'),
-        dcc.Markdown('An example of a correlation with compensation that can be used in prediction.')
+        html.Img(src='https://puu.sh/GWzUU/cf76028cd8.png'),
+        dcc.Markdown('How far off you can expect the model to be according to your true compensation.')
     ]
 )
 

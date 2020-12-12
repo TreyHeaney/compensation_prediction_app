@@ -1,3 +1,4 @@
+"""The page on which predictions are generated."""
 # What's up
 
 # Imports from 3rd party libraries

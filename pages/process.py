@@ -1,3 +1,5 @@
+"""The steps taken to build/implement the model."""
+
 # Imports from 3rd party libraries
 import dash
 import dash_bootstrap_components as dbc
@@ -15,12 +17,15 @@ column1 = dbc.Col(
         
             ## Process
 
-            The model we used here is a simple ridge regression boosted with a shallow random forest (random stumps)
+            The model we used here is a simple regression boosted with a shallow random forest (random stumps)
             built around the 2020 Stack Overflow Developer Survey results. The preprocessing for the data was implemented
             mostly in pandas/sklearn, and the final predictor was from XGBoost, which is to say I programmed 
-            0.01% of it.
+            0.01% of it. 
 
-            The whole project is covered more in-depth here 
+            The website was written with dash and implemented through heroku, which is kinda slow... Sorry. 
+
+            The whole project is covered more in-depth here:
+             
             https://data-sci-ish.blogspot.com/2020/11/a-predictive-model-for-developer.html
 
             """
